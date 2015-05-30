@@ -11,31 +11,35 @@ using System.Text;
 public class MCast : MonoBehaviour
 {
 
-    public int startupPort = 5100;
-    public string groupAddress = "239.0.0.222";
+    public int startupPort = 2223;
+    public string groupAddress = "224.0.0.3";
 
-    public string remoteAddress = "192.168.2.117";
+    string remoteAddress;
     public int port = 2224;
+
+    public Boolean searchingService = true;
 
     UdpClient udpClient;
     IPEndPoint remote_end;
 
-    NetworkHandler handler;
+
+    HashSet<String> serverAddresses = new HashSet<String>();
+    
 
     // Use this for initialization
     void Start()
     {
-        //StartGameClient();
+        StartGameClient();
     }
 
     void Update()
     {
-        if (Input.GetButtonUp("Jump"))
-        {
-            NetworkHandler.sendMessage("join", IPAddress.Parse(remoteAddress), port);
-        }
     }
 
+    void OnDestroy()
+    {
+        searchingService = false;
+    }
 
     void StartGameClient()
     {
@@ -53,10 +57,28 @@ public class MCast : MonoBehaviour
     {
         byte[] receiveBytes = udpClient.EndReceive(result, ref remote_end);
         string strData = System.Text.Encoding.Unicode.GetString(receiveBytes);
+
+
+
+        if(strData.Equals("GameController"))
+        {
+        remoteAddress = remote_end.Address.ToString();
+        serverAddresses.Add(remoteAddress);
+        Client_Join_Lobby.joinLobby(remoteAddress);
+ 
+        }
+        else
+        {
+            Debug.Log("mensagem invalida");
+            
+        }
+        
         Debug.Log("Received " + strData + " from " + remote_end.Address.ToString());
-
-        udpClient.BeginReceive(new AsyncCallback(ServerLookup), null);
-
+        Debug.Log("servers size:" + serverAddresses.Count);
+        if(searchingService)
+        {
+            udpClient.BeginReceive(new AsyncCallback(ServerLookup), null);
+        }
     }
 
 

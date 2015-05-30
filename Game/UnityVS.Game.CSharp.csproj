@@ -54,14 +54,12 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CheckClients.cs" />
     <Compile Include="Assets\Scripts\MCast.cs" />
     <Compile Include="Assets\Scripts\Server_Join_Receiver.cs" />
     <Compile Include="Assets\Scripts\Server_Mc_Advertiser.cs" />

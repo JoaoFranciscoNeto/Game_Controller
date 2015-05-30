@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Authentication\MCast.cs" />
      <Compile Include="Assets\Scripts\Authentication\Server_Auth_MC.cs" />
      <Compile Include="Assets\Scripts\MainMenu\PopulateMenu.cs" />
+     <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

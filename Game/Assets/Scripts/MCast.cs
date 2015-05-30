@@ -43,6 +43,8 @@ public class MCast : MonoBehaviour
 
         Debug.Log(remote_end.Address.ToString());
 
+        
+
         string strData = System.Text.Encoding.Unicode.GetString(receiveBytes);
         Debug.Log(strData);
 

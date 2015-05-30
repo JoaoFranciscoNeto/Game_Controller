@@ -35,6 +35,8 @@ public class Server_Join_Receiver : MonoBehaviour {
 
         //sending confirmation message to client
 
+        
+
         IPAddress clientAddress = IPAddress.Parse(remote_end.Address.ToString());
         Debug.Log("received join from " + clientAddress.ToString());
         client_end = new IPEndPoint(clientAddress, listenerPort);

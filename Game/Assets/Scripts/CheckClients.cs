@@ -10,5 +10,10 @@ public class CheckClients : MonoBehaviour {
 	void Start () {
 
         lastAlive = new Dictionary<string, float>();
+
+        
 	}
+
+
+
 }

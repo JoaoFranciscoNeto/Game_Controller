@@ -5,56 +5,41 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-public class Server_Mc_Advertiser : MonoBehaviour {
+public class Server_Mc_Advertiser : MonoBehaviour
+{
 
+    public string mcAddress = "239.0.0.222";
+    public int mcPort = 2223;
 
     UdpClient udpclient;
     IPEndPoint remoteep;
     Byte[] buffer;
 
-	// Use this for initialization
-	void Start () {
-         udpclient = new UdpClient();
+    // Use this for initialization
+    void Start()
+    {
+        udpclient = new UdpClient();
 
-        IPAddress multicastaddress = IPAddress.Parse("239.0.0.222");
+        IPAddress multicastaddress = IPAddress.Parse(mcAddress);
         udpclient.JoinMulticastGroup(multicastaddress);
-        remoteep = new IPEndPoint(multicastaddress, 2223);
+        remoteep = new IPEndPoint(multicastaddress, mcPort);
 
-       buffer = null;
+        buffer = null;
 
-        //Console.WriteLine("Press ENTER to start sending messages");
-        //Console.ReadLine();
+        StartCoroutine(BroadCast("GameController"));
 
-        /*
-        for (int i = 0; i <= 8000; i++)
+    }
+
+    IEnumerator BroadCast(string message)
+    {
+        buffer = Encoding.Unicode.GetBytes(message);
+        while (true)
         {
-            buffer = Encoding.Unicode.GetBytes(i.ToString());
             udpclient.Send(buffer, buffer.Length, remoteep);
-            Debug.Log("Sent " + i);
+            Debug.Log("Broadcasted Service");
+            yield return new WaitForSeconds(1);
         }
-         */
-
-        //Console.WriteLine("All Done! Press ENTER to quit.");
-        //Console.ReadLine();
+     
+    }
         
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-
-
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("jump");
-            buffer = Encoding.Unicode.GetBytes("oi gatos");
-            udpclient.Send(buffer, buffer.Length, remoteep);
-            Debug.Log("Sent " + "gatos");
-        }
-
-
-       
-
-	
-	}
 }

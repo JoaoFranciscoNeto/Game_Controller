@@ -6,7 +6,6 @@ using System;
 
 public class Client_Join_Lobby : MonoBehaviour {
     
-    public static int timeout = 1000;
 
 	// Use this for initialization
 	void Start () {
@@ -16,18 +15,25 @@ public class Client_Join_Lobby : MonoBehaviour {
     public static Boolean joinLobby(string serverIp)
     {
         int joinTries = 0;
+        int timeout = 500;
+
         while (joinTries < 3)
         {
             NetworkHandler.sendMessage("JOIN", IPAddress.Parse(serverIp), 2224);
 
-            if (NetworkHandler.receiveMessage(2224, IPAddress.Parse(serverIp), timeout).body.Equals("OK"))
+            Message msg = NetworkHandler.receiveMessage(2224, IPAddress.Parse(serverIp), timeout);
+
+            Debug.Log(msg.body);
+
+            if (msg.body != null && msg.body.Equals("OK"))
             {
                 return true;
             }
             else
             {
-                timeout *= 2;
                 joinTries++;
+                Debug.Log("Receive Timed Out on try number " + joinTries);
+                timeout *= 2;
             }
         }
 

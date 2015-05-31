@@ -34,19 +34,30 @@ public class NetworkHandler
     {
         UdpClient client = new UdpClient(port);
         IPEndPoint remoteEnd = new IPEndPoint(address, 0);
-        
-        Byte[] receiveBytes = client.Receive(ref remoteEnd);
-        if(timeout>0)
+
+        if (timeout > 0)
         {
             client.Client.ReceiveTimeout = timeout;
+            Debug.Log("Set timeout to " + timeout);
         }
-        Message result = new Message();
-        result.ip = remoteEnd.Address;
-        result.port = remoteEnd.Port;
-        result.body = Encoding.Unicode.GetString(receiveBytes);
-        
 
-        client.Close();
+        Message result = new Message();
+
+        try
+        {
+            Byte[] receiveBytes = client.Receive(ref remoteEnd);
+            result.ip = remoteEnd.Address;
+            result.port = remoteEnd.Port;
+            result.body = Encoding.Unicode.GetString(receiveBytes);
+
+
+            client.Close();
+        }
+        catch (SocketException ex)
+        {
+            Debug.LogError(ex);
+            client.Close();
+        }
 
 
         return result;

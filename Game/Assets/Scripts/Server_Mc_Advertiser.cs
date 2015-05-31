@@ -11,6 +11,8 @@ public class Server_Mc_Advertiser : MonoBehaviour
     public string mcAddress = "239.0.0.222";
     public int mcPort = 2223;
 
+    public string broadcastMessage;
+
     UdpClient udpclient;
     IPEndPoint remoteep;
     Byte[] buffer;
@@ -26,7 +28,7 @@ public class Server_Mc_Advertiser : MonoBehaviour
 
         buffer = null;
 
-        StartCoroutine(BroadCast("GameController"));
+        StartCoroutine(BroadCast(broadcastMessage));
 
     }
 

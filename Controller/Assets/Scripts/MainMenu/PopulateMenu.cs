@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PopulateMenu : MonoBehaviour {
 
@@ -25,7 +26,11 @@ public class PopulateMenu : MonoBehaviour {
     private void addButton()
     {
         GameObject newButton = Instantiate(sampleButton) as GameObject;
+        SampleButton button = newButton.GetComponent<SampleButton>();
 
-        newButton.transform.SetParent(parentContainer);
+        button.nameLabel.text = "Nome do Servidor";
+        button.ipLabel.text = "192.168.0.1";
+        newButton.transform.SetParent(parentContainer,false);
+
     }
 }

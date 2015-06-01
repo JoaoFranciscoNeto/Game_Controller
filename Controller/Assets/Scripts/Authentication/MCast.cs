@@ -70,11 +70,11 @@ public class ServerFinding : MonoBehaviour
         if (strData.Equals("GameController"))
         {
             remoteAddress = remote_end.Address.ToString();
-
+            /*
             if (Client_Join_Lobby.joinLobby(remoteAddress))
             {
                 return;
-            }
+            }*/
 
         }
         else

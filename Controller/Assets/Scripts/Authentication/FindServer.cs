@@ -14,11 +14,13 @@ using System.Threading;
 
 public class FindServer : MonoBehaviour
 {
-    
+
     public int startupPort = 2223;
     public string groupAddress = "224.0.0.3";
     public int joinSendPort = 3000;
     public int joinReceivePort = 3002;
+
+    public int retryAttempts = 3;
 
 
     public Boolean searchingService = true;
@@ -35,9 +37,11 @@ public class FindServer : MonoBehaviour
 
     public Transform parentContainer;
 
+    private Text userName;
 
     void Start()
     {
+        userName = GameObject.FindGameObjectWithTag("UserName").GetComponent<Text>();
         FindServers();
     }
 
@@ -49,7 +53,7 @@ public class FindServer : MonoBehaviour
 
     public void FindServers()
     {
-        
+
 
         remote_end = new IPEndPoint(IPAddress.Any, startupPort);
         udpClient = new UdpClient(remote_end);
@@ -72,7 +76,7 @@ public class FindServer : MonoBehaviour
             Destroy(btn);
         }
 
-        foreach (KeyValuePair<string,string> entry in serverAddresses)
+        foreach (KeyValuePair<string, string> entry in serverAddresses)
         {
             addButton(entry.Value, entry.Key);
         }
@@ -90,7 +94,7 @@ public class FindServer : MonoBehaviour
         byte[] receiveBytes = udpClient.EndReceive(result, ref remote_end);
         string strData = System.Text.Encoding.Unicode.GetString(receiveBytes);
 
-        if (Regex.IsMatch(strData,pattern))
+        if (Regex.IsMatch(strData, pattern))
         {
 
             Match m = Regex.Match(strData, pattern);
@@ -133,9 +137,18 @@ public class FindServer : MonoBehaviour
         int joinTries = 0;
         int timeout = 500;
 
-        while (joinTries < 3)
+        string uName;
+
+        if (userName.text == "" || !Regex.IsMatch(userName.text,@"(\w+(\s+\w+)*)",RegexOptions.IgnoreCase))
+            uName = "Douchebag";
+        else
+            uName = userName.text;
+
+        string message = "join;" + SystemInfo.deviceUniqueIdentifier + ";" + uName;
+
+        while (joinTries < retryAttempts)
         {
-            NetworkHandler.sendMessage("join", IPAddress.Parse(serverIp), joinSendPort);
+            NetworkHandler.sendMessage(message, IPAddress.Parse(serverIp), joinSendPort);
 
             Message msg = NetworkHandler.receiveMessage(joinReceivePort, IPAddress.Parse(serverIp), timeout);
 

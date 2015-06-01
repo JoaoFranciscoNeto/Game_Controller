@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CheckClients.cs" />
+     <Compile Include="Assets\Scripts\Data\ApplicationModel.cs" />
+     <Compile Include="Assets\Scripts\Data\Player.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
      <Compile Include="Assets\Scripts\Server_Join_Receiver.cs" />
      <Compile Include="Assets\Scripts\Server_Mc_Advertiser.cs" />

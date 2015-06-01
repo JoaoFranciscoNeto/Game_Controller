@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public class Server_Join_Receiver : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Server_Join_Receiver : MonoBehaviour
     public int listenerPort = 3001;
     public int sendPort = 3002;
     IPEndPoint remote_end, client_end;
+
+    private string pattern = @"^join;(\w+);(\w+(\s+\w+)*)$";
 
     UdpClient udpClient;
 
@@ -45,21 +48,25 @@ public class Server_Join_Receiver : MonoBehaviour
 
         string strData = System.Text.Encoding.Unicode.GetString(receiveBytes);
 
-        if (strData == "join")
+        Debug.Log("Received " + strData);
+
+        if (Regex.IsMatch(strData,pattern))
         {
+            Match m = Regex.Match(strData, pattern);
+
             IPAddress clientAddress = IPAddress.Parse(remote_end.Address.ToString());
+
+            Debug.Log("received join from " + clientAddress.ToString());
+
+            Player newPlayer = new Player();
+            newPlayer.uniqueID = m.Groups[1].Value;
+            newPlayer.userName = m.Groups[2].Value;
+            ApplicationModel.controllers[clientAddress] = newPlayer;
+
+            Debug.Log("Added new player " + newPlayer.ToString());
+            Debug.Log(ApplicationModel.controllers.Count);
             NetworkHandler.sendMessage("ok", clientAddress, sendPort);
 
-            Debug.Log("received join from " + clientAddress.ToString());
-            
-            /*
-            Debug.Log("received join from " + clientAddress.ToString());
-            client_end = new IPEndPoint(clientAddress, 3000);
-
-            Byte[] buffer = Encoding.Unicode.GetBytes("OK");
-            udpClient.Send(buffer, buffer.Length, client_end);
-            Debug.Log("OK sent to client");
-             * */
         }
 
 

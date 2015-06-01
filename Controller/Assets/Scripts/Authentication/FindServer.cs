@@ -17,6 +17,8 @@ public class FindServer : MonoBehaviour
     
     public int startupPort = 2223;
     public string groupAddress = "224.0.0.3";
+    public int joinSendPort = 3000;
+    public int joinReceivePort = 3002;
 
 
     public Boolean searchingService = true;
@@ -33,6 +35,11 @@ public class FindServer : MonoBehaviour
 
     public Transform parentContainer;
 
+
+    void Start()
+    {
+        FindServers();
+    }
 
     void OnDestroy()
     {
@@ -113,6 +120,38 @@ public class FindServer : MonoBehaviour
         button.ipLabel.text = ip;
         newButton.transform.SetParent(parentContainer, false);
 
+        Button b = button.GetComponent<Button>();
+        b.onClick.AddListener(() => joinLobby(ip));
+
         buttons.Add(newButton);
+    }
+
+    public void joinLobby(string serverIp)
+    {
+        Debug.Log("Joining Server " + serverIp);
+
+        int joinTries = 0;
+        int timeout = 500;
+
+        while (joinTries < 3)
+        {
+            NetworkHandler.sendMessage("join", IPAddress.Parse(serverIp), joinSendPort);
+
+            Message msg = NetworkHandler.receiveMessage(joinReceivePort, IPAddress.Parse(serverIp), timeout);
+
+            Debug.Log("Message received = " + msg.body);
+
+            if (msg.body != null && msg.body.Equals("ok"))
+            {
+
+                return;
+            }
+            else
+            {
+                joinTries++;
+                Debug.Log("Receive Timed Out on try number " + joinTries);
+                timeout *= 2;
+            }
+        }
     }
 }

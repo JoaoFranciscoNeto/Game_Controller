@@ -20,28 +20,52 @@ public class NetworkHandler {
 
     public static Message receiveMessage(int port)
     {
-        return receiveMessage(port, IPAddress.Any);
+        return receiveMessage(port, IPAddress.Any, 0);
     }
 
     public static Message receiveMessage(int port, IPAddress address)
     {
+        return receiveMessage(port, address, 0);
+    }
+
+    public static Message receiveMessage(int port, int timeout)
+    {
+        return receiveMessage(port, IPAddress.Any, timeout);
+    }
+
+
+    public static Message receiveMessage(int port, IPAddress address, int timeout)
+    {
         UdpClient client = new UdpClient(port);
         IPEndPoint remoteEnd = new IPEndPoint(address, 0);
 
-        Byte[] receiveBytes = client.Receive(ref remoteEnd);
+        if (timeout > 0)
+        {
+            client.Client.ReceiveTimeout = timeout;
+        }
 
         Message result = new Message();
-        result.ip = remoteEnd.Address;
-        result.port = remoteEnd.Port;
-        result.body = Encoding.Unicode.GetString(receiveBytes);
+
+        try
+        {
+            Byte[] receiveBytes = client.Receive(ref remoteEnd);
+            result.ip = remoteEnd.Address;
+            result.port = remoteEnd.Port;
+            result.body = Encoding.Unicode.GetString(receiveBytes);
 
 
-        client.Close();
+            client.Close();
+        }
+        catch (SocketException ex)
+        {
+            //Debug.LogError(ex);
+            client.Close();
+        }
 
 
         return result;
     }
-    
+  
 }
 
 public struct Message

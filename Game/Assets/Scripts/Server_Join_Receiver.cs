@@ -48,23 +48,21 @@ public class Server_Join_Receiver : MonoBehaviour
 
         string strData = System.Text.Encoding.Unicode.GetString(receiveBytes);
 
-        Debug.Log("Received " + strData);
-
         if (Regex.IsMatch(strData,pattern))
         {
             Match m = Regex.Match(strData, pattern);
 
             IPAddress clientAddress = IPAddress.Parse(remote_end.Address.ToString());
 
-            Debug.Log("received join from " + clientAddress.ToString());
-
             Player newPlayer = new Player();
             newPlayer.uniqueID = m.Groups[1].Value;
             newPlayer.userName = m.Groups[2].Value;
             ApplicationModel.controllers[clientAddress] = newPlayer;
 
+            CheckClients.lastAlive[m.Groups[1].Value] = DateTime.Now.Ticks;
+
             Debug.Log("Added new player " + newPlayer.ToString());
-            Debug.Log(ApplicationModel.controllers.Count);
+
             NetworkHandler.sendMessage("ok", clientAddress, sendPort);
 
         }

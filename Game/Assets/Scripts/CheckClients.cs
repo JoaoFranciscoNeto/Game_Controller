@@ -2,19 +2,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System;
+using System.Net;
 
-public class CheckClients : MonoBehaviour {
+public class CheckClients : MonoBehaviour
+{
 
     public int timeToDisc = 1000;
-    Dictionary<string, float> lastAlive;
+    public static Dictionary<string, long> lastAlive; // device identifier => ticks on last ping
+    public int pingsPort = 3003;
 
-	// Use this for initialization
-	void Start () {
+    private Thread listener, reporter;
 
-        lastAlive = new Dictionary<string, float>();
+    // Use this for initialization
+    void Start()
+    {
 
-        Thread listener = new Thread(new ThreadStart(listenForPings));
-        Thread reporter = new Thread(new ThreadStart(reportConnectivity));
+        lastAlive = new Dictionary<string, long>();
+
+        listener = new Thread(new ThreadStart(listenForPings));
+        reporter = new Thread(new ThreadStart(reportConnectivity));
 
         try
         {
@@ -27,43 +34,82 @@ public class CheckClients : MonoBehaviour {
             Debug.Log(e);
         }
 
-	}
+    }
+
+    void OnDestroy()
+    {
+
+        listener.Abort();
+        listener.Join();
+
+        reporter.Abort();
+        reporter.Join();
+    }
 
     void listenForPings()
     {
+
         while (true)
         {
-            Message msg = NetworkHandler.receiveMessage(2225);
-
-            lock (lastAlive)
+            if (lastAlive.Count != 0)
             {
-                lastAlive[msg.body] = Time.time;
+                Message msg = NetworkHandler.receiveMessage(pingsPort, timeToDisc);
+
+                if (msg.body != "")
+                {
+                    //Debug.Log("Ping received on " + (float)DateTime.Now.Ticks);
+                    lock (lastAlive)
+                    {
+                        lastAlive[msg.body] = DateTime.Now.Ticks;
+                    }
+                }
             }
+            else
+            {
+                //Debug.Log("No players Found");
+            }
+            Thread.Sleep(1);
         }
     }
 
     void reportConnectivity()
     {
+        TimeSpan allowed = new TimeSpan(timeToDisc * TimeSpan.TicksPerMillisecond);
         List<string> keysToRemove = new List<string>();
-        lock (lastAlive)
+        //Debug.Log("Ticks To Disconnect = " + ticksToDisc);
+
+        while (true)
         {
-            
-            foreach (KeyValuePair<string, float> entry in lastAlive)
+            //Debug.Log("Checking list");
+            lock (lastAlive)
             {
-                if (Time.time - entry.Value > timeToDisc)
+                foreach (KeyValuePair<string, long> entry in lastAlive)
                 {
-                    Debug.Log("Client " + entry.Key + " disconnected");
-                    keysToRemove.Add(entry.Key);
+                    //Debug.Log("Last ping was " + (DateTime.Now.Ticks - entry.Value) + " ticks ago. Ticks To Disc = " + ticksToDisc);
+                    TimeSpan span = new TimeSpan(DateTime.Now.Ticks - entry.Value);
+
+                    Debug.Log("Client " + entry.Key + " span = " + span + ". Allowed = " + allowed);
+                    if (span > allowed)
+                    {
+                        Debug.Log("Client " + entry.Key + " disconnected");
+                        keysToRemove.Add(entry.Key);
+                    }
+                    else
+                    {
+                        Debug.Log("Client " + entry.Key + " is alive");
+                    }
                 }
+
+                foreach (string key in keysToRemove)
+                {
+                    lastAlive.Remove(key);
+                }
+                keysToRemove.Clear();
             }
 
-            foreach (string key in keysToRemove)
-            {
-                lastAlive.Remove(key);
-            }
+            Debug.Log(lastAlive.Count + " client(s) are alive");
+            Thread.Sleep(timeToDisc);
         }
-
-        Thread.Sleep(timeToDisc);
     }
 
 

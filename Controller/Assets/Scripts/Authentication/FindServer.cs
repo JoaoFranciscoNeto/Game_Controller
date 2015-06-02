@@ -41,6 +41,7 @@ public class FindServer : MonoBehaviour
 
     void Start()
     {
+        ApplicationModel.identifier = SystemInfo.deviceUniqueIdentifier;
         userName = GameObject.FindGameObjectWithTag("UserName").GetComponent<Text>();
         FindServers();
     }
@@ -156,7 +157,8 @@ public class FindServer : MonoBehaviour
 
             if (msg.body != null && msg.body.Equals("ok"))
             {
-
+                ApplicationModel.serverAddr = IPAddress.Parse(serverIp);
+                Application.LoadLevel("Controller");
                 return;
             }
             else

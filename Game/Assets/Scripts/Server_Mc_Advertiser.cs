@@ -38,7 +38,6 @@ public class Server_Mc_Advertiser : MonoBehaviour
         while (true)
         {
             udpclient.Send(buffer, buffer.Length, remoteep);
-            Debug.Log("Broadcasted Service");
             yield return new WaitForSeconds(1);
         }
      

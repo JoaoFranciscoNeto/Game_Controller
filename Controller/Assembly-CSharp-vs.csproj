@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\MainMenu\SampleButton.cs" />
      <Compile Include="Assets\Scripts\Network\ControllerNetwork.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
+     <Compile Include="Assets\Scripts\test.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

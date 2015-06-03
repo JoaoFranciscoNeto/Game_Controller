@@ -55,7 +55,7 @@ public class FindServer : MonoBehaviour
     public void FindServers()
     {
 
-
+        serverAddresses.Clear();
         remote_end = new IPEndPoint(IPAddress.Any, startupPort);
         udpClient = new UdpClient(remote_end);
         udpClient.JoinMulticastGroup(IPAddress.Parse(groupAddress));

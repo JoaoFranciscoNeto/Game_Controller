@@ -17,7 +17,7 @@ public class KeepAlive {
         while (true)
         {
             NetworkHandler.sendMessage("ping;" + ApplicationModel.identifier, addr, pingsPort);
-            Debug.Log("Sent ping;"+ApplicationModel.identifier);
+            //Debug.Log("Sent ping;"+ApplicationModel.identifier);
             Thread.Sleep(sleepTime);
         }
         

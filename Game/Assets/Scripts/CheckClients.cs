@@ -85,7 +85,7 @@ public class CheckClients : MonoBehaviour
                     //Debug.Log("Last ping was " + (DateTime.Now.Ticks - entry.Value) + " ticks ago. Ticks To Disc = " + ticksToDisc);
                     TimeSpan span = new TimeSpan(DateTime.Now.Ticks - entry.Value);
 
-                    Debug.Log("Client " + entry.Key + " span = " + span + ". Allowed = " + allowed);
+                    //Debug.Log("Client " + entry.Key + " span = " + span + ". Allowed = " + allowed);
                     if (span > allowed)
                     {
                         Debug.Log("Client " + entry.Key + " disconnected");
@@ -93,7 +93,7 @@ public class CheckClients : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Client " + entry.Key + " is alive");
+                        //Debug.Log("Client " + entry.Key + " is alive");
                     }
                 }
 
@@ -104,7 +104,7 @@ public class CheckClients : MonoBehaviour
                 keysToRemove.Clear();
             }
 
-            Debug.Log(lastAlive.Count + " client(s) are alive");
+            //Debug.Log(lastAlive.Count + " client(s) are alive");
             Thread.Sleep(timeToDisc);
         }
     }

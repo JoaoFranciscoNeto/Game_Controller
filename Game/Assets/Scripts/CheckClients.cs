@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System;
 using System.Net;
+using System.Text.RegularExpressions;
 
 public class CheckClients : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CheckClients : MonoBehaviour
     public static Dictionary<string, long> lastAlive; // device identifier => ticks on last ping
     public int pingsPort = 3003;
 
+    private string pingPattern = @"ping;(\w+)";
     private Thread listener, reporter;
 
     // Use this for initialization
@@ -51,24 +53,19 @@ public class CheckClients : MonoBehaviour
 
         while (true)
         {
-            if (lastAlive.Count != 0)
-            {
-                Message msg = NetworkHandler.receiveMessage(pingsPort, timeToDisc);
 
-                if (msg.body != "")
+            //Debug.Log("Listening with player count = " + lastAlive.Count);
+
+            Message msg = NetworkHandler.receiveMessage(pingsPort, timeToDisc);
+            //Debug.Log("Message " + msg.body + "  on " + DateTime.Now.Ticks);
+            if (Regex.IsMatch(msg.body,pingPattern))
+            {
+                string id = Regex.Match(msg.body, pingPattern).Groups[1].Value;
+                lock (lastAlive)
                 {
-                    //Debug.Log("Ping received on " + (float)DateTime.Now.Ticks);
-                    lock (lastAlive)
-                    {
-                        lastAlive[msg.body] = DateTime.Now.Ticks;
-                    }
+                    lastAlive[id] = DateTime.Now.Ticks;
                 }
             }
-            else
-            {
-                //Debug.Log("No players Found");
-            }
-            Thread.Sleep(1);
         }
     }
 

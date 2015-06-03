@@ -58,6 +58,7 @@ public class NetworkHandler {
         }
         catch (SocketException ex)
         {
+            result.body = "error";
             //Debug.LogError(ex);
             client.Close();
         }

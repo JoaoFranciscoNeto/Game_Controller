@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Move(Vector3 direction, bool jump)
     {
+        Debug.Log("x = " + direction.x + " y = " + direction.y + " z = " + direction.z);
         if (UseTorque)
-            rigid.AddTorque(new Vector3(direction.z, 0, -direction.x) * MovePower);
+            rigid.AddTorque(new Vector3(direction.y, 0, -direction.x) * MovePower);
         else
             rigid.AddForce(direction * MovePower);
 

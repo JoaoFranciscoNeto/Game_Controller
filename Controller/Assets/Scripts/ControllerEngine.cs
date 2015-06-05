@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Newtonsoft.Json;
+
 
 public class ControllerEngine : MonoBehaviour {
 
@@ -68,7 +70,14 @@ public class ControllerEngine : MonoBehaviour {
 
     private void OnPointerClick(BaseEventData data)
     {
-        
+        HTTP.Request someRequest = new HTTP.Request("get", "http://httpbin.org/get");
+        someRequest.Send((request) =>
+        {
+            // parse some JSON, for example:
+            // JSONObject thing = new JSONObject(request.response.Text);
+            Debug.Log(request.response.Text);
+        });
+
         Debug.Log("OnPointerClick " + data.selectedObject.GetComponent<CNT_Button>().identifier);
     }
 

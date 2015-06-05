@@ -60,8 +60,17 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zlib">
+      <HintPath>Assets\Libs\Ionic.Zlib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Libs\JSON.cs" />
+    <Compile Include="Assets\Libs\UnityHTTP\CookieJar.cs" />
+    <Compile Include="Assets\Libs\UnityHTTP\DiskCache.cs" />
+    <Compile Include="Assets\Libs\UnityHTTP\Request.cs" />
+    <Compile Include="Assets\Libs\UnityHTTP\Response.cs" />
+    <Compile Include="Assets\Libs\UnityHTTP\ResponseCallbackDispatcher.cs" />
     <Compile Include="Assets\Scripts\Authentication\FindServer.cs" />
     <Compile Include="Assets\Scripts\Authentication\KeepAlive.cs" />
     <Compile Include="Assets\Scripts\CNT_Button.cs" />

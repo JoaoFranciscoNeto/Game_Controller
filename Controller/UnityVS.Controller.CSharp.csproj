@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Network\ControllerNetwork.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
     <Compile Include="Assets\Scripts\Network\Play_Object.cs" />
+    <Compile Include="Assets\Scripts\Network\UDPSend.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2012\UnityVS.CSharp.targets" />

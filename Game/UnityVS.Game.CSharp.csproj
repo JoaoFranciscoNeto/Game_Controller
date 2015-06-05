@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
     <Compile Include="Assets\Scripts\Network\Play_Object.cs" />
     <Compile Include="Assets\Scripts\Network\Server_HTTP_Listener.cs" />
+    <Compile Include="Assets\Scripts\Network\UDPReceive.cs" />
     <Compile Include="Assets\Scripts\Server_Join_Receiver.cs" />
     <Compile Include="Assets\Scripts\Server_Mc_Advertiser.cs" />
   </ItemGroup>

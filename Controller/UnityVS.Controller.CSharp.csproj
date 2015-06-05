@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Authentication\FindServer.cs" />
     <Compile Include="Assets\Scripts\Authentication\KeepAlive.cs" />
+    <Compile Include="Assets\Scripts\CNT_Button.cs" />
+    <Compile Include="Assets\Scripts\ControllerEngine.cs" />
     <Compile Include="Assets\Scripts\Data\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\MainMenu\SampleButton.cs" />
     <Compile Include="Assets\Scripts\Network\ControllerNetwork.cs" />

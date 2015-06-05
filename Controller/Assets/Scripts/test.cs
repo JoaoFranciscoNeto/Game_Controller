@@ -51,4 +51,9 @@ public class test : MonoBehaviour {
     {
         Debug.Log("End swipe");
     }
+
+    public void tt(CNT_Button b)
+    {
+        Debug.Log(b.identifier);
+    }
 }

@@ -6,8 +6,7 @@ public class Player {
     public string uniqueID;
     public string userName;
 
-    
-    public override string ToString () {
+    public string ToString () {
         return "Player User Name = " + userName + " from device " + uniqueID;
     }
 }

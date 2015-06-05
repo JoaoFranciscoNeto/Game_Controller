@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 
 
@@ -123,23 +125,36 @@ public class Server_HTTP_Listener : MonoBehaviour
             // Check for end-of-file tag. If it is not there, read 
             // more data.
             content = state.sb.ToString();
-            //if (content.IndexOf("<EOF>") > -1)
-            //{
-                // All the data has been read from the 
-                // client. Display it on the console.
-                Debug.Log("Read " + content.Length 
-                            + " bytes from socket. \n Data : " 
-                            + content);
+
+
+            try
+            {
+                Play_Object received = JsonConvert.DeserializeObject<Play_Object>(content);
+
+                //if (content.IndexOf("<EOF>") > -1)
+                //{
+
+                Debug.Log("Read " + content.Length
+                            + " bytes from socket. \n Data : "
+                            + content
+                            + "\n json object:"
+                    // +  received.ToString()
+                           );
                 // Echo the data back to the client.
                 Send(handler, content);
-            //}
-            /*else
+                //}
+                /*else
+                {
+                    // Not all data received. Get more.
+                    Debug.Log("fetching more data...");
+                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReadCallback), state);
+                }*/
+            }
+            catch (Exception ex)
             {
-                // Not all data received. Get more.
-                Debug.Log("fetching more data...");
-                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReadCallback), state);
-            }*/
+                Debug.Log(ex.StackTrace.ToString());
+            }
         }
     }
      private static void Send(Socket handler, String data)

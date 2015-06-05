@@ -69,9 +69,12 @@
  </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>C:/Users/João/Documents/GitHub/Game_Controller/Controller/Assets/Libs/Newtonsoft.Json.dll</HintPath>
+<<<<<<< HEAD
  </Reference>
  <Reference Include="Ionic.Zlib">
  <HintPath>C:/Users/João/Documents/GitHub/Game_Controller/Controller/Assets/Libs/Ionic.Zlib.dll</HintPath>
+=======
+>>>>>>> parent of 2a474eb... merge manheuse
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

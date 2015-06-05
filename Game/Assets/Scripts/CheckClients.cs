@@ -19,6 +19,7 @@ public class CheckClients : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
 
         lastAlive = new Dictionary<string, long>();
 
@@ -104,7 +105,6 @@ public class CheckClients : MonoBehaviour
                 keysToRemove.Clear();
             }
 
-            //Debug.Log(lastAlive.Count + " client(s) are alive");
             Thread.Sleep(timeToDisc);
         }
     }

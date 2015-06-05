@@ -57,32 +57,18 @@ public class ControllerEngine : MonoBehaviour {
     }
 
     #endregion
-
-    // Update is called once per frame
-	void Update () {
-	
-	}
-
-    void testFunction()
-    {
-        Debug.Log("I am Here!!!");
-    }
-
+    
     private void OnPointerClick(BaseEventData data)
     {
-        HTTP.Request someRequest = new HTTP.Request("get", "http://httpbin.org/get");
-        someRequest.Send((request) =>
-        {
-            // parse some JSON, for example:
-            // JSONObject thing = new JSONObject(request.response.Text);
-            Debug.Log(request.response.Text);
-        });
+        Play p = new Play();
+        p.jump = true;
+        p.move = new Vector2(0, 0);
 
-        Debug.Log("OnPointerClick " + data.selectedObject.GetComponent<CNT_Button>().identifier);
-    }
+        Play_Object pl = new Play_Object(p, ApplicationModel.identifier);
 
-    private void testString(string id)
-    {
-        Debug.Log("My identifier is " + id);
+        string msg = JsonConvert.SerializeObject(pl, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+        byte[] bytes = System.Text.Encoding.ASCII.GetBytes(msg);
+        HTTP.Request request = new HTTP.Request("post", "http://" + ApplicationModel.serverAddr + ":2225/game/", bytes);
+        request.Send();
     }
 }

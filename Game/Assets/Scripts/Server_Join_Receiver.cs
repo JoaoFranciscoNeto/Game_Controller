@@ -66,9 +66,7 @@ public class Server_Join_Receiver : MonoBehaviour
             NetworkHandler.sendMessage("ok", clientAddress, sendPort);
 
         }
-
-
-
+        
         if (listening)
             udpClient.BeginReceive(new AsyncCallback(JoinLookup), null);
 

@@ -18,6 +18,7 @@ public class Client_HTTP_Talker : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetButton("Jump"))
         {
             form = new WWWForm();
@@ -37,6 +38,7 @@ public class Client_HTTP_Talker : MonoBehaviour
 
             Debug.Log("passei");
         }
+         * */
     }
 
 

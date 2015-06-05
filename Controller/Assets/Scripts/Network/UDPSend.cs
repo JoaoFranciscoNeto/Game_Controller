@@ -67,6 +67,7 @@ public class UDPSend : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetButton("Jump"))
         {
 
@@ -74,6 +75,7 @@ public class UDPSend : MonoBehaviour
             sendString(JsonConvert.SerializeObject(play));
             Debug.Log("sent " + JsonConvert.SerializeObject(play));
         }
+         * */
     }
 
 }

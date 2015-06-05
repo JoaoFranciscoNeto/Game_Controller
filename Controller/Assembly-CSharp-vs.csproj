@@ -70,9 +70,12 @@
  <Reference Include="Newtonsoft.Json">
  <HintPath>C:/Users/João/Documents/GitHub/Game_Controller/Controller/Assets/Libs/Newtonsoft.Json.dll</HintPath>
 <<<<<<< HEAD
+<<<<<<< HEAD
  </Reference>
  <Reference Include="Ionic.Zlib">
  <HintPath>C:/Users/João/Documents/GitHub/Game_Controller/Controller/Assets/Libs/Ionic.Zlib.dll</HintPath>
+=======
+>>>>>>> parent of 2a474eb... merge manheuse
 =======
 >>>>>>> parent of 2a474eb... merge manheuse
  </Reference>

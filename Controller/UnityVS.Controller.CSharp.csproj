@@ -57,6 +57,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Authentication\FindServer.cs" />
@@ -65,8 +68,11 @@
     <Compile Include="Assets\Scripts\ControllerEngine.cs" />
     <Compile Include="Assets\Scripts\Data\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\MainMenu\SampleButton.cs" />
+    <Compile Include="Assets\Scripts\Network\Client_HTTP_Talker.cs" />
     <Compile Include="Assets\Scripts\Network\ControllerNetwork.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
+    <Compile Include="Assets\Scripts\Network\Play_Object.cs" />
+    <Compile Include="Assets\Scripts\Network\UDPSend.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2012\UnityVS.CSharp.targets" />

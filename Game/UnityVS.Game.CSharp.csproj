@@ -57,6 +57,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CNT_Input.cs" />
@@ -64,6 +67,9 @@
     <Compile Include="Assets\Scripts\Data\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\Data\Player.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
+    <Compile Include="Assets\Scripts\Network\Play_Object.cs" />
+    <Compile Include="Assets\Scripts\Network\Server_HTTP_Listener.cs" />
+    <Compile Include="Assets\Scripts\Network\UDPReceive.cs" />
     <Compile Include="Assets\Scripts\Server_Join_Receiver.cs" />
     <Compile Include="Assets\Scripts\Server_Mc_Advertiser.cs" />
   </ItemGroup>

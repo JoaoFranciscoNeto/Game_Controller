@@ -52,11 +52,17 @@
      <Compile Include="Assets\Scripts\ControllerEngine.cs" />
      <Compile Include="Assets\Scripts\Data\ApplicationModel.cs" />
      <Compile Include="Assets\Scripts\MainMenu\SampleButton.cs" />
+     <Compile Include="Assets\Scripts\Network\Client_HTTP_Talker.cs" />
      <Compile Include="Assets\Scripts\Network\ControllerNetwork.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkHandler.cs" />
+     <Compile Include="Assets\Scripts\Network\Play_Object.cs" />
+     <Compile Include="Assets\Scripts\Network\UDPSend.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/Users/João/Documents/GitHub/Game_Controller/Controller/Assets/Libs/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
